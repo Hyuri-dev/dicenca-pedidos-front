@@ -7,10 +7,8 @@ const getAllPortfolios = async (): Promise<PortFolioProps[]> => {
   return data;
 };
 
-const createPortfolio = async ({
-  name,
-}: Omit<PortFolioProps, "id">): Promise<PortFolioProps> => {
-  const data = (await api.post(`/portfolio/create`, name)).data;
+const createPortfolio = async (name: string): Promise<PortFolioProps> => {
+  const data = (await api.post(`/portfolio/create`, { name })).data;
   return data;
 };
 
@@ -38,11 +36,7 @@ export function usePortfolioQuery() {
     queryFn: getAllPortfolios,
   });
 
-  const createPortfolioMutation = useMutation<
-    PortFolioProps,
-    Error,
-    Omit<PortFolioProps, "id">
-  >({
+  const createPortfolioMutation = useMutation<PortFolioProps, Error, string>({
     mutationFn: createPortfolio,
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["portfolios"] }),
