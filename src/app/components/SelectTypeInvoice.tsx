@@ -28,13 +28,7 @@ export default function SelectTypeInvoice() {
       <Label>Tipo de factura:</Label>
       <Select
         onValueChange={(value) => {
-          const selectedInvoice = typeInvoices?.find(
-            (s) => s.id.toString() === value,
-          );
-
-          if (selectedInvoice) {
-            setTypeInvoice(selectedInvoice.id);
-          }
+          setTypeInvoice(typeInvoices!.find((tyP) => tyP.id.toString() === value))
         }}
       >
         <SelectTrigger className="w-full">
@@ -43,7 +37,7 @@ export default function SelectTypeInvoice() {
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Tipo de factura</SelectLabel>
-            {typeInvoices?.map((typeinvoice) => (
+            {typeInvoices!.map((typeinvoice) => (
               <SelectItem
                 key={typeinvoice.id}
                 value={typeinvoice.id.toString()}
