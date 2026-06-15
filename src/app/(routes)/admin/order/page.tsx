@@ -4,6 +4,7 @@ import { CreateOrderBtn } from "@/app/components/CreateOrderBtn";
 import { SelectClient } from "@/app/components/SelectClient";
 import { SelectedProducts } from "@/app/components/SelectedProducts";
 import { SelectSeller } from "@/app/components/SelectSeller";
+import SelectTypeInvoice from "@/app/components/SelectTypeInvoice";
 // import { SelectSeller } from "@/app/components/SelectSeller";
 import { SelectZone } from "@/app/components/SelectZone";
 import { TotalSpan } from "@/app/components/TotalSpan";
@@ -20,11 +21,11 @@ export default function Home({ params }: { params: Promise<{ id: string }> }) {
     useNewVentaStore();
 
   return (
-    <div className='flex flex-col h-full w-full gap-2 border-neutral-300 p-3'>
-      <div className='flex flex-col w-full gap-2'>
-        <div className='flex justify-between items-center'>
-          <p className='font-semibold text-2xl'>Crear Nuevo Pedido</p>
-          <Button onClick={reset} className='bg-sky-700'>
+    <div className="flex flex-col h-full w-full gap-2 border-neutral-300 p-3">
+      <div className="flex flex-col w-full gap-2">
+        <div className="flex justify-between items-center">
+          <p className="font-semibold text-2xl">Crear Nuevo Pedido</p>
+          <Button onClick={reset} className="bg-sky-700">
             Borrar todo
           </Button>
         </div>
@@ -32,21 +33,22 @@ export default function Home({ params }: { params: Promise<{ id: string }> }) {
         {seller && <SelectZone />}
         {zone && <SelectClient />}
         {client && (
-          <div className='flex flex-col gap-1 '>
+          <div className="flex flex-col gap-1 ">
             <Label>Nota:</Label>
             <Input
-              className='border border-neutral-200 h-14 bg-white'
-              type='text'
+              className="border border-neutral-200 h-14 bg-white"
+              type="text"
               onChange={(e) => setOrderNote(e.target.value)}
             />
           </div>
         )}
+        {client && <SelectTypeInvoice />}
         {client && <AddDetailButton />}
         {order && order.details && order.details.length > 0 && (
           <SelectedProducts />
         )}
       </div>
-      <div className='flex flex-col gap-2 w-full fixed bottom-0 z-50 right-0 left-0 p-3 bg-white border-t border-neutral-300'>
+      <div className="flex flex-col gap-2 w-full fixed bottom-0 z-50 right-0 left-0 p-3 bg-white border-t border-neutral-300">
         {order && order.details && order.details.length > 0 && <TotalSpan />}
         {order && order.details && order.details.length > 0 && (
           <CreateOrderBtn />

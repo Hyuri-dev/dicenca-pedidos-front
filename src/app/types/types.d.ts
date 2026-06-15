@@ -64,6 +64,7 @@ export interface OrderDetailsProps {
 export interface CreateOrderProps {
   clientId: number;
   notes: string;
+  typeInvoiceId: number;
   details: Omit<OrderDetailsProps[], "id", "orderId" | "gr" | "total">;
 }
 

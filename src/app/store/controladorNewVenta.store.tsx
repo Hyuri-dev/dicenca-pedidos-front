@@ -1,5 +1,4 @@
 import { create } from "zustand";
-// import { createJSONStorage, persist } from "zustand/middleware";
 import {
   ClientProps,
   CreateOrderProps,
@@ -8,7 +7,6 @@ import {
   ZoneProps,
 } from "../types/types";
 
-//creacion de type para el estado del zustand
 interface ControladorStateProps {
   seller: UserProps | undefined;
   zone: ZoneProps | undefined;
@@ -19,14 +17,16 @@ interface ControladorStateProps {
   setZone: (zone: ZoneProps) => void;
   setClient: (client: ClientProps) => void;
   setOrderNote: (notes: string) => void;
+  setTypeInvoice: (typeInvoiceId: number) => void;
   addDetailToOrder: (
-    detail: Omit<OrderDetailsProps, "id" | "orderId" | "price" | "gr" | "total">
+    detail: Omit<
+      OrderDetailsProps,
+      "id" | "orderId" | "price" | "gr" | "total"
+    >,
   ) => void;
   deleteDetailFromOrder?: (index: number) => void;
 }
 
-// se una el metodo create para crear un nuevo estado global con zustand
-// que recibe como parametro una funcion fecha con el set que sirve para modificar y actualizar el estado
 export const useNewVentaStore = create<ControladorStateProps>((set) => ({
   seller: undefined,
   zone: undefined,
@@ -34,6 +34,7 @@ export const useNewVentaStore = create<ControladorStateProps>((set) => ({
   order: {
     clientId: 0,
     notes: "",
+    typeInvoiceId: 0,
     details: [],
   },
   setSeller: (seller: UserProps) => {
@@ -59,8 +60,19 @@ export const useNewVentaStore = create<ControladorStateProps>((set) => ({
       } as CreateOrderProps,
     }));
   },
+  setTypeInvoice: (typeInvoiceId: number) => {
+    set((state) => ({
+      order: {
+        ...state.order,
+        typeInvoiceId,
+      } as CreateOrderProps,
+    }));
+  },
   addDetailToOrder: (
-    detail: Omit<OrderDetailsProps, "id" | "orderId" | "price" | "gr" | "total">
+    detail: Omit<
+      OrderDetailsProps,
+      "id" | "orderId" | "price" | "gr" | "total"
+    >,
   ) => {
     set((state) => ({
       order: {
@@ -88,7 +100,12 @@ export const useNewVentaStore = create<ControladorStateProps>((set) => ({
     set({
       zone: undefined,
       client: undefined,
-      order: undefined,
+      order: {
+        clientId: 0,
+        notes: "",
+        typeInvoiceId: 0,
+        details: [],
+      },
     });
   },
 }));

@@ -45,7 +45,7 @@ export function useTypeInvoiceQuery() {
   >({
     mutationFn: createTypeInvoice,
     onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["typeinvoices"] }),
+      queryClient.invalidateQueries({ queryKey: ["typeInvoices"] }),
   });
 
   const editTypeInvoiceMutation = useMutation<
@@ -55,14 +55,14 @@ export function useTypeInvoiceQuery() {
   >({
     mutationFn: editTypeInvoice,
     onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["typeinvoices"] }),
+      queryClient.invalidateQueries({ queryKey: ["typeInvoices"] }),
   });
 
   const deletTypeInvoiceMutation = useMutation<TypeInvoiceProps, Error, number>(
     {
       mutationFn: deleteTypeInvoice,
       onSuccess: () =>
-        queryClient.invalidateQueries({ queryKey: ["typeinvoices"] }),
+        queryClient.invalidateQueries({ queryKey: ["typeInvoices"] }),
     },
   );
 
